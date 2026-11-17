@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Official photo gallery of Paras Kashyap, Founder and CEO of Paras Tech Industries.">
+  <meta name="author" content="Paras Tech Industries">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Paras Kashyap | Official CEO Photo Gallery">
+  <meta property="og:description" content="Photo gallery of Paras Kashyap, Founder and CEO of Paras Tech Industries.">
+  <title>Paras Kashyap | Official CEO Photo Gallery</title>
+  <meta name="theme-color" content="#101114">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101114;
+      --panel: #191b20;
+      --panel-2: #20232a;
+      --text: #f5f5f4;
+      --muted: #a6a7ad;
+      --gold: #d8ad62;
+      --gold-light: #f1d49a;
+      --line: rgba(255,255,255,.10);
+      --shadow: 0 24px 70px rgba(0,0,0,.42);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% -15%, rgba(216,173,98,.16), transparent 42%),
+        linear-gradient(145deg, #111216, #090a0c 70%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .page { width: min(1100px, calc(100% - 36px)); margin: 0 auto; padding: 42px 0 28px; }
+    header { text-align: center; margin-bottom: 28px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: var(--gold-light); text-transform: uppercase; letter-spacing: .22em;
+      font-size: .72rem; font-weight: 700;
+    }
+    .eyebrow::before, .eyebrow::after { content: ""; width: 24px; height: 1px; background: var(--gold); opacity: .8; }
+    h1 { margin: 13px 0 7px; font-family: Georgia, "Times New Roman", serif; font-weight: 500; font-size: clamp(2rem, 5vw, 3.6rem); letter-spacing: -.035em; }
+    .role { margin: 0; color: var(--muted); font-size: .96rem; letter-spacing: .04em; }
+    .role strong { color: var(--gold-light); font-weight: 600; }
+    .gallery {
+      overflow: hidden; border: 1px solid rgba(216,173,98,.25); border-radius: 22px;
+      background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+      box-shadow: var(--shadow);
+    }
+    .stage {
+      position: relative; min-height: 300px; height: min(68vh, 720px);
+      display: grid; place-items: center; padding: 18px;
+      background:
+        radial-gradient(ellipse at center, rgba(216,173,98,.08), transparent 58%),
+        #0c0d10;
+    }
+    .main-image {
+      display: block; max-width: 100%; max-height: 100%; width: auto; height: auto;
+      object-fit: contain; border-radius: 12px;
+      box-shadow: 0 12px 45px rgba(0,0,0,.4);
+      transition: opacity .18s ease;
+    }
+    .main-image.fade { opacity: .25; }
+    .nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 46px; height: 46px; border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%; color: white; background: rgba(10,11,14,.72);
+      display: grid; place-items: center; cursor: pointer; font-size: 1.5rem;
+      backdrop-filter: blur(10px); transition: .2s ease;
+    }
+    .nav:hover { background: var(--gold); color: #17130c; border-color: var(--gold); }
+    .nav:focus-visible, .thumb:focus-visible, .play:focus-visible { outline: 3px solid var(--gold-light); outline-offset: 3px; }
+    .prev { left: 18px; } .next { right: 18px; }
+    .caption-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 16px 20px; border-top: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+    }
+    .caption { min-width: 0; }
+    .caption-title { margin: 0 0 3px; font-weight: 650; }
+    .caption-sub { margin: 0; color: var(--muted); font-size: .82rem; }
+    .counter { color: var(--gold-light); font-variant-numeric: tabular-nums; white-space: nowrap; font-size: .9rem; }
+    .thumbs {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+      margin-top: 16px;
+    }
+    .thumb {
+      padding: 5px; border: 1px solid var(--line); border-radius: 13px;
+      background: var(--panel); cursor: pointer; overflow: hidden; transition: .2s ease;
+    }
+    .thumb[aria-current="true"] { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 8px 24px rgba(216,173,98,.12); }
+    .thumb img { display: block; width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+    .thumb span { display: block; padding: 8px 4px 5px; color: var(--muted); font-size: .78rem; }
+    .thumb[aria-current="true"] span { color: var(--gold-light); }
+    .controls { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 18px; }
+    .play {
+      border: 1px solid rgba(216,173,98,.55); border-radius: 999px; padding: 10px 18px;
+      color: var(--gold-light); background: rgba(216,173,98,.08); cursor: pointer;
+      font: inherit; font-size: .88rem; font-weight: 650;
+    }
+    .play:hover { background: rgba(216,173,98,.17); }
+    .hint { color: var(--muted); text-align: center; font-size: .76rem; margin: 13px 0 0; }
+    footer { text-align: center; color: #777982; font-size: .75rem; margin-top: 34px; }
+    footer span { color: var(--gold-light); }
+    @media (max-width: 640px) {
+      .page { width: min(100% - 22px, 1100px); padding-top: 28px; }
+      .stage { height: 58vh; min-height: 300px; padding: 10px; }
+      .nav { width: 40px; height: 40px; }
+      .prev { left: 9px; } .next { right: 9px; }
+      .thumbs { gap: 7px; }
+      .thumb img { height: 95px; }
+      .caption-row { padding: 13px 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">Paras Tech Industries</div>
+      <h1>Paras Kashyap</h1>
+      <p class="role"><strong>Founder &amp; CEO</strong> · Official Photo Gallery</p>
+    </header>
+
+    <section class="gallery" aria-label="Paras Kashyap photo gallery">
+      <div class="stage" id="stage">
+        <img
+          class="main-image"
+          id="mainImage"
+          src="images/paras-kashyap-formal.jpg"
+          alt="Paras Kashyap wearing a formal dark suit, white shirt and tie"
+          fetchpriority="high"
+        >
+        <button class="nav prev" id="prevBtn" type="button" aria-label="Previous photo">&#8249;</button>
+        <button class="nav next" id="nextBtn" type="button" aria-label="Next photo">&#8250;</button>
+      </div>
+      <div class="caption-row">
+        <div class="caption" aria-live="polite">
+          <p class="caption-title" id="captionTitle">Formal Portrait</p>
+          <p class="caption-sub">Paras Kashyap · Founder &amp; CEO</p>
+        </div>
+        <div class="counter" id="counter">01 / 03</div>
+      </div>
+    </section>
+
+    <div class="thumbs" aria-label="Choose a photo">
+      <button class="thumb" type="button" data-index="0" aria-current="true" aria-label="Show formal portrait">
+        <img src="images/paras-kashyap-formal.jpg" alt="Formal suit portrait thumbnail" loading="lazy">
+        <span>Formal Portrait</span>
+      </button>
+      <button class="thumb" type="button" data-index="1" aria-current="false" aria-label="Show green jacket portrait">
+        <img src="images/paras-kashyap-portrait-2.jpg" alt="Green jacket portrait thumbnail" loading="lazy">
+        <span>Portrait 02</span>
+      </button>
+      <button class="thumb" type="button" data-index="2" aria-current="false" aria-label="Show green jacket full portrait">
+        <img src="images/paras-kashyap-portrait-3.jpg" alt="Green jacket full portrait thumbnail" loading="lazy">
+        <span>Portrait 03</span>
+      </button>
+    </div>
+
+    <div class="controls">
+      <button class="play" id="playBtn" type="button" aria-pressed="false">▶ Start slideshow</button>
+    </div>
+    <p class="hint">Use the arrows, thumbnails, or keyboard ← → keys to browse the photos.</p>
+
+    <footer>© <span id="year"></span> Paras Tech Industries · Official CEO Gallery</footer>
+  </main>
+
+  <script>
+    const photos = [
+      {
+        src: "images/paras-kashyap-formal.jpg",
+        alt: "Paras Kashyap wearing a formal dark suit, white shirt and tie",
+        title: "Formal Portrait"
+      },
+      {
+        src: "images/paras-kashyap-portrait-2.jpg",
+        alt: "Paras Kashyap wearing a green jacket",
+        title: "Portrait 02"
+      },
+      {
+        src: "images/paras-kashyap-portrait-3.jpg",
+        alt: "Paras Kashyap wearing a green jacket, full portrait",
+        title: "Portrait 03"
+      }
+    ];
+
+    const mainImage = document.getElementById("mainImage");
+    const captionTitle = document.getElementById("captionTitle");
+    const counter = document.getElementById("counter");
+    const thumbs = [...document.querySelectorAll(".thumb")];
+    const playBtn = document.getElementById("playBtn");
+    let current = 0;
+    let slideshow = null;
+
+    function showPhoto(index) {
+      current = (index + photos.length) % photos.length;
+      const photo = photos[current];
+      mainImage.classList.add("fade");
+      const preload = new Image();
+      preload.onload = () => {
+        mainImage.src = photo.src;
+        mainImage.alt = photo.alt;
+        captionTitle.textContent = photo.title;
+        counter.textContent = `${String(current + 1).padStart(2, "0")} / ${String(photos.length).padStart(2, "0")}`;
+        thumbs.forEach((thumb, i) => {
+          thumb.setAttribute("aria-current", String(i === current));
+        });
+        mainImage.classList.remove("fade");
+      };
+      preload.onerror = () => {
+        mainImage.classList.remove("fade");
+        captionTitle.textContent = "Image could not be loaded";
+      };
+      preload.src = photo.src;
+    }
+
+    function stopSlideshow() {
+      if (slideshow) clearInterval(slideshow);
+      slideshow = null;
+      playBtn.textContent = "▶ Start slideshow";
+      playBtn.setAttribute("aria-pressed", "false");
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", () => showPhoto(current - 1));
+    document.getElementById("nextBtn").addEventListener("click", () => showPhoto(current + 1));
+    thumbs.forEach(thumb => thumb.addEventListener("click", () => showPhoto(Number(thumb.dataset.index))));
+
+    playBtn.addEventListener("click", () => {
+      if (slideshow) {
+        stopSlideshow();
+      } else {
+        slideshow = setInterval(() => showPhoto(current + 1), 4000);
+        playBtn.textContent = "Ⅱ Pause slideshow";
+        playBtn.setAttribute("aria-pressed", "true");
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "ArrowLeft") showPhoto(current - 1);
+      if (event.key === "ArrowRight") showPhoto(current + 1);
+      if (event.key === "Escape") stopSlideshow();
+    });
+
+    const stage = document.getElementById("stage");
+    let touchStartX = 0;
+    stage.addEventListener("touchstart", event => {
+      touchStartX = event.changedTouches[0].screenX;
+    }, { passive: true });
+    stage.addEventListener("touchend", event => {
+      const delta = event.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(delta) > 45) showPhoto(delta < 0 ? current + 1 : current - 1);
+    }, { passive: true });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
